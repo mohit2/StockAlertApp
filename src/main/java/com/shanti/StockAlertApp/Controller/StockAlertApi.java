@@ -1,5 +1,6 @@
 package com.shanti.StockAlertApp.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,18 @@ public class StockAlertApi {
 	public Stock getHighLowForStock(@PathVariable("stock") String symbol){
 		
 		return service.getStockHighLowRange(symbol);
+	}
+	
+	@PostMapping(value = "postPercentChangeDetail")
+	public void postPercentChange(){
+		
+		//List<String> stockSymbols = service.getAllStockSymbol();
+		
+		List<String> stockSymbols = new ArrayList<>();
+		stockSymbols.add("ACC");
+		service.calculatePercentChangeInPriceAndVolume(stockSymbols, 5);
+		service.calculatePercentChangeInPriceAndVolume(stockSymbols, 10);
+		service.calculatePercentChangeInPriceAndVolume(stockSymbols, 30);
 	}
 
 }

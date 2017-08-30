@@ -6,42 +6,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "stock")
+@Table(name= "stock_historical_price")
 public class Stock {
 	
 	@Id
-	@Column(name="Symbol")
+	@Column(name="symbol")
 	private String symbol;
 	
-	@Column(name="Name")
+	@Column(name="name")
 	private String name;
 
-	@Column(name="Yesterday_High")
+	@Column(name="yest_high")
 	private Double yesterdayHigh;
 	
-	@Column(name="Yesterday_Low")
+	@Column(name="yest_low")
 	private Double yesterdayLow;
 	
-	@Column(name="7_Day_High")
+	@Column(name="week_high")
 	private Double weekHigh;
 	
-	@Column(name="7_Day_Low")
+	@Column(name="week_low")
 	private Double weekLow;
 	
-	@Column(name="30_Day_High")
+	@Column(name="month_high")
 	private Double monthHigh;
 	
-	@Column(name="30_Day_Low")
+	@Column(name="month_low")
 	private Double monthLow;
 	
-	@Column(name="52_Week_High")
+	@Column(name="year_high")
 	private Double yearHigh;
 	
-	@Column(name="52_Week_Low")
+	@Column(name="year_low")
 	private Double yearLow;
-	
-	@Column(name="30_Day_Percentage_Change")
-	private Double percentChange;
 
 	public String getSymbol() {
 		return symbol;
@@ -122,15 +119,5 @@ public class Stock {
 	public void setYearLow(Double yearLow) {
 		this.yearLow = yearLow;
 	}
-
-	public Double getPercentChange() {
-		return percentChange;
-	}
-
-	public void setPercentChange(Double percentChange) {
-		this.percentChange = percentChange;
-	}
-
-	
 	
 }

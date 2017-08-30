@@ -6,30 +6,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Trend")
+@Table(name = "stock_trend")
 public class Trend {
 
 	@Id
-	@Column(name="Symbol")
+	@Column(name="symbol")
 	private String symbol;
 	
-	@Column(name="5_Day_Price_Change")
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="threeDayChangePct")
 	private Double fiveDayPriceChange;
 	
-	@Column(name="10_Day_Price_Change")
-	private Double tenDayPriceChange;
+	@Column(name="weekChangePct")
+	private Double weekChangePct;
 	
-	@Column(name="30_Day_Price_Change")
-	private Double thirtyDayPriceChange;
+	@Column(name="monthChangePct")
+	private Double monthChangePct;
 	
-	@Column(name="5_Day_Volume_Change")
-	private Double fiveDayVolumeChange;
+	@Column(name="threeMonthChangePct")
+	private Double threeMonthChangePct;
 	
-	@Column(name="10_Day_Volume_Change")
-	private Double tenDayVolumeChange;
+	@Column(name="yearlyChangePct")
+	private Double yearlyChangePct;
 	
-	@Column(name="30_Day_Volume_Change")
-	private Double thirtyDayVolumeChange;
+	@Column(name="volumeChangePct")
+	private Double volumeChangePct;
+	
+	@Column(name="sma_50")
+	private Double sma50;
+	
+	@Column(name="sma_100")
+	private Double sma100;
+	
+	@Column(name="sma_200")
+	private Double sma200;
 
 	public String getSymbol() {
 		return symbol;
@@ -37,6 +49,14 @@ public class Trend {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Double getFiveDayPriceChange() {
@@ -47,44 +67,68 @@ public class Trend {
 		this.fiveDayPriceChange = fiveDayPriceChange;
 	}
 
-	public Double getTenDayPriceChange() {
-		return tenDayPriceChange;
+	public Double getWeekChangePct() {
+		return weekChangePct;
 	}
 
-	public void setTenDayPriceChange(Double tenDayPriceChange) {
-		this.tenDayPriceChange = tenDayPriceChange;
+	public void setWeekChangePct(Double weekChangePct) {
+		this.weekChangePct = weekChangePct;
 	}
 
-	public Double getThirtyDayPriceChange() {
-		return thirtyDayPriceChange;
+	public Double getMonthChangePct() {
+		return monthChangePct;
 	}
 
-	public void setThirtyDayPriceChange(Double thirtyDayPriceChange) {
-		this.thirtyDayPriceChange = thirtyDayPriceChange;
+	public void setMonthChangePct(Double monthChangePct) {
+		this.monthChangePct = monthChangePct;
 	}
 
-	public Double getFiveDayVolumeChange() {
-		return fiveDayVolumeChange;
+	public Double getThreeMonthChangePct() {
+		return threeMonthChangePct;
 	}
 
-	public void setFiveDayVolumeChange(Double fiveDayVolumeChange) {
-		this.fiveDayVolumeChange = fiveDayVolumeChange;
+	public void setThreeMonthChangePct(Double threeMonthChangePct) {
+		this.threeMonthChangePct = threeMonthChangePct;
 	}
 
-	public Double getTenDayVolumeChange() {
-		return tenDayVolumeChange;
+	public Double getYearlyChangePct() {
+		return yearlyChangePct;
 	}
 
-	public void setTenDayVolumeChange(Double tenDayVolumeChange) {
-		this.tenDayVolumeChange = tenDayVolumeChange;
+	public void setYearlyChangePct(Double yearlyChangePct) {
+		this.yearlyChangePct = yearlyChangePct;
 	}
 
-	public Double getThirtyDayVolumeChange() {
-		return thirtyDayVolumeChange;
+	public Double getVolumeChangePct() {
+		return volumeChangePct;
 	}
 
-	public void setThirtyDayVolumeChange(Double thirtyDayVolumeChange) {
-		this.thirtyDayVolumeChange = thirtyDayVolumeChange;
+	public void setVolumeChangePct(Double volumeChangePct) {
+		this.volumeChangePct = volumeChangePct;
+	}
+
+	public Double getSma50() {
+		return sma50;
+	}
+
+	public void setSma50(Double sma50) {
+		this.sma50 = sma50;
+	}
+
+	public Double getSma100() {
+		return sma100;
+	}
+
+	public void setSma100(Double sma100) {
+		this.sma100 = sma100;
+	}
+
+	public Double getSma200() {
+		return sma200;
+	}
+
+	public void setSma200(Double sma200) {
+		this.sma200 = sma200;
 	}
 	
 	

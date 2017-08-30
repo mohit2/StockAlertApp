@@ -10,14 +10,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.shanti.StockAlertApp.Model.Stock;
+import com.shanti.StockAlertApp.Model.Trend;
 
 @Component
 public class Utility {
 	
-	public Map<Integer, List<Double>> processResponse(String result, Stock stock){
+	public static Logger logger = Logger.getLogger(Utility.class);
+	
+	public Map<Integer, List<Double>> processResponse(String result){
 			
 			BufferedReader bufReader = new BufferedReader(new StringReader(result));
 			String line = null;
@@ -51,10 +55,10 @@ public class Utility {
 			
 			Double high, low;
 			if(!map.isEmpty() && days==365){
-				if(map.get(1).get(0) > stock.getYearHigh()){
+				if( map.get(1).get(0) > stock.getYearHigh()){
 					stock.setYearHigh(map.get(1).get(0));
 				}
-				if(map.get(1).get(1) < stock.getYearLow()){
+				if( map.get(1).get(1) < stock.getYearLow()){
 					stock.setYearHigh(map.get(1).get(1));
 				}
 			}
@@ -97,4 +101,34 @@ public class Utility {
 			return stock;
 		}
 
+		/*public Trend getPercentChange(Map<Integer, List<Double>> map, Trend trend, Integer days){
+			
+			Double changeInVol =0.0, changeInPrice =0.0;
+			int length = map.size();
+			
+			changeInVol =((map.get(length).get(1) - map.get(1).get(1)) * 100)/map.get(1).get(1);
+			changeInPrice =((map.get(length).get(0) - map.get(1).get(0))*100)/map.get(1).get(0);
+			//changeInPrice = Math.round(changeInPrice*100.0/100.0);
+			switch(days){
+			
+			case 5:
+				trend.setFiveDayPriceChange(changeInPrice);
+				trend.setFiveDayVolumeChange(changeInVol);
+				break;
+				
+			case 10:
+				trend.setTenDayPriceChange(changeInPrice);
+				trend.setTenDayVolumeChange(changeInVol);
+				break;
+			case 30:
+				trend.setThirtyDayPriceChange(changeInPrice);
+				trend.setThirtyDayVolumeChange(changeInVol);
+				break;
+			default:
+				break;
+			}
+			
+			return trend;
+			
+		}*/
 }
