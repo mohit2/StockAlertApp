@@ -55,20 +55,17 @@ public class ExcelUploadService {
 					member = new PremiumMember();
 					member.setEmail(row.getCell(0).getStringCellValue());
 					member.setName(row.getCell(1).getStringCellValue());
-					if(row.getCell(2) == null){
-						member.setGmail("");
-					}
-					else{
-						member.setGmail(row.getCell(2).getStringCellValue());
-					}		
-					row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+					if(member.getEmail().contains("gmail")){
+						member.setGmail(row.getCell(0).getStringCellValue());
+					}	
+					row.getCell(2).setCellType(Cell.CELL_TYPE_STRING);
 					if(row.getCell(2) == null){
 						member.setPhnNo("");
 					}
 					else{
-						member.setPhnNo(row.getCell(3).getStringCellValue());
+						member.setPhnNo(row.getCell(2).getStringCellValue());
 					}			
-					member.setSubcriptionDate(row.getCell(4).getDateCellValue());
+					member.setSubcriptionDate(row.getCell(3).getDateCellValue());
 					Calendar c = Calendar.getInstance();
 					c.setTime(member.getSubcriptionDate());
 					c.add(Calendar.DATE, 30);
@@ -108,19 +105,29 @@ public class ExcelUploadService {
 				}
 				String email = row.getCell(4).getStringCellValue();
 				PremiumMember member = repository.findOne(email);
+				row.getCell(1).setCellType(Cell.CELL_TYPE_NUMERIC);
 				if(member!=null){
 					Calendar c = Calendar.getInstance();
 					if(member.getActive().equals("Y")){
-						c.setTime(member.getExpirationDate());		
+						//System.out.println("1st 2nd:" + row.getCell(1).getDateCellValue()+ " 2nd" + member.getSubcriptionDate());
+						
+						if(row.getCell(1).getDateCellValue().compareTo(member.getSubcriptionDate()) > 0){
+							c.setTime(member.getSubcriptionDate());
+							c.add(Calendar.DATE, 30);
+							member.setSubcriptionDate(c.getTime());
+							c.setTime(member.getExpirationDate());
+							c.add(Calendar.DATE, 30);
+							member.setExpirationDate(c.getTime());
+						}
+							
 					}
 					else{
-						row.getCell(1).setCellType(Cell.CELL_TYPE_NUMERIC);
 						member.setSubcriptionDate(row.getCell(1).getDateCellValue());
 						c.setTime(member.getSubcriptionDate());
+						c.add(Calendar.DATE, 30);
+						member.setExpirationDate(c.getTime());
 					}
 					
-					c.add(Calendar.DATE, 30);
-					member.setExpirationDate(c.getTime());
 				}
 				else{
 					member = new PremiumMember();
@@ -139,7 +146,6 @@ public class ExcelUploadService {
 					else{
 						member.setPhnNo(row.getCell(5).getStringCellValue());
 					}
-					row.getCell(1).setCellType(Cell.CELL_TYPE_NUMERIC);
 					member.setSubcriptionDate(row.getCell(1).getDateCellValue());
 					Calendar c = Calendar.getInstance();
 					c.setTime(member.getSubcriptionDate());

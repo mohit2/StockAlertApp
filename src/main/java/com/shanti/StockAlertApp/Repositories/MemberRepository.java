@@ -12,4 +12,7 @@ public interface MemberRepository extends CrudRepository<PremiumMember, String>{
 
 	@Query("select m.email from PremiumMember m where m.active=:active")
 	List<String> findInActiveMembers(@Param("active") String active);
+	
+	@Query("select m.phnNo from PremiumMember m where now() > m.expirationDate and m.expirationDate between now() and now()-5")
+	List<String>  findInactiveMembersForFivedays();
 }

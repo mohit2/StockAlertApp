@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shanti.StockAlertApp.Services.ExcelUploadService;
 import com.shanti.StockAlertApp.Services.ExpiryServices;
+import com.shanti.StockAlertApp.Services.SmsAlertService;
 
 @RestController
 public class ExpiryApi {
@@ -20,9 +21,17 @@ public class ExpiryApi {
 	@Autowired
 	private ExcelUploadService excelService;
 	
+	@Autowired
+	private SmsAlertService smsAlertService;
+	
 	@GetMapping(value = "getExpiredMembers")
 	public List<String> getExpiredMembers(){
 		return service.getExpiredMembers();
+	}
+	
+	@PostMapping(value="sendSMS")
+	public String sendSms(){
+		return smsAlertService.sendSms2();
 	}
 	
 	@PostMapping(value="setActiveFlag")
