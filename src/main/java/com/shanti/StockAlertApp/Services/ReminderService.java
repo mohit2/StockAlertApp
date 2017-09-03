@@ -76,24 +76,30 @@ public class ReminderService {
 			MimeMessage message = sender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message);
 			for (PremiumMember premiumMember : inactiveMembers) {
-				System.out.println(premiumMember.getEmail());
-				/*msg = new StringBuilder(smsHead);
-				msg.append(inactiveMembers.get(0).getExpirationDate().).append(smsTrail);
-				helper.setTo(premiumMember.getGmail());
-				helper.setFrom(mailSender);
-				helper.setText(msg.toString());
-				helper.setSubject("Reminder for Renewal");
-				sender.send(message);*/
+				//System.out.println(premiumMember.getGmail());
+				if(premiumMember.getGmail()!=null && !premiumMember.getGmail().isEmpty()){
+					System.out.println(premiumMember.getGmail());
+					msg = new StringBuilder("Hello " + premiumMember.getName() + ",\n\n" + smsHead + " ");
+					msg.append(premiumMember.getExpirationDate()).append("\n").append(smsTrail)
+					.append("\n \n Regards \n Team JaanoAurSeekho");
+					helper.setTo(premiumMember.getGmail());
+					helper.setFrom(mailSender);
+					helper.setText(msg.toString());
+					helper.setSubject("JaanoAurSeekho-Reminder for Renewal");
+					sender.send(message);
+				}
+				
 			}
 			
-			System.out.println(mailSender);
-			msg = new StringBuilder(smsHead + " ");
-			msg.append(inactiveMembers.get(0).getExpirationDate()).append(smsTrail);
+			/*System.out.println(mailSender);
+			msg = new StringBuilder("Hello " + inactiveMembers.get(0).getName() + ",\n\n" + smsHead + " ");
+			msg.append(inactiveMembers.get(0).getExpirationDate()).append("\n").append(smsTrail)
+			
 			helper.setTo("shanti1490@gmail.com");
 			helper.setFrom(mailSender);
 			helper.setText(msg.toString());
 			helper.setSubject("Reminder for Renewal");
-			sender.send(message);
+			sender.send(message);*/
 			
 		}
 		catch (Exception e) {

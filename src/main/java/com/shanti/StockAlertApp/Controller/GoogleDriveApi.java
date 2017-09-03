@@ -66,6 +66,9 @@ public class GoogleDriveApi {
 		List<String> emailList = new ArrayList<>();
 		permissions.stream().forEach(s->{ permIds.add(s.getPermId()); emailList.add(s.getEmail());});
 		
+		//permIds.stream().forEach(e->System.out.println(e));
+		//emailList.stream().forEach(s-> System.out.println(s));
+		
         permIds.stream().forEach(permId-> {
 			try {
 				System.out.println("Permission IDS: "+ permId);

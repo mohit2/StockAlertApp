@@ -65,7 +65,7 @@ public class QuickStart {
     public  Credential authorize() throws IOException {
         // Load client secrets.
        // InputStream in = QuickStart.class.getResourceAsStream("/client_secret.json");
-    	InputStream in = this.getClass().getResourceAsStream("/client_secret.json");
+    	InputStream in = this.getClass().getResourceAsStream("/client_secret_mohit.json");
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 

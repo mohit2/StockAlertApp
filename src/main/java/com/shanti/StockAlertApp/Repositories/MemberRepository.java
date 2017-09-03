@@ -10,7 +10,7 @@ import com.shanti.StockAlertApp.Model.PremiumMember;
 
 public interface MemberRepository extends CrudRepository<PremiumMember, String>{
 
-	@Query("select m.email from PremiumMember m where m.expirationDate < SUBDATE(now(),1)")
+	@Query("select m.gmail from PremiumMember m where m.expirationDate < SUBDATE(now(),1) and m.gmail is not null")
 	List<String> findInActiveMembers();
 	
 	@Query("select m.phnNo from PremiumMember m where now() > m.expirationDate and m.expirationDate between now() and now()-5")
