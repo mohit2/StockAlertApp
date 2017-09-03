@@ -48,7 +48,7 @@ public class ExcelUploadService {
 					member.setSubcriptionDate(row.getCell(4).getDateCellValue());
 					Calendar c = Calendar.getInstance();
 					c.setTime(member.getSubcriptionDate());
-					c.add(Calendar.DATE, 30);
+					c.add(Calendar.DATE, 31);
 					member.setExpirationDate(c.getTime());
 				}
 				else{
@@ -68,7 +68,7 @@ public class ExcelUploadService {
 					member.setSubcriptionDate(row.getCell(3).getDateCellValue());
 					Calendar c = Calendar.getInstance();
 					c.setTime(member.getSubcriptionDate());
-					c.add(Calendar.DATE, 30);
+					c.add(Calendar.DATE, 31);
 					member.setExpirationDate(c.getTime());		
 				}
 				if(new Date().compareTo(member.getExpirationDate()) > 0){
@@ -93,6 +93,7 @@ public class ExcelUploadService {
 	public void ReadInstaMojoExcel(String filePath){
 	
 		File file = new File(filePath);
+		Date dt;
 		try {
 			XSSFWorkbook workbook = new XSSFWorkbook(file);
 			XSSFSheet sheet = workbook.getSheetAt(0);
@@ -108,23 +109,22 @@ public class ExcelUploadService {
 				row.getCell(1).setCellType(Cell.CELL_TYPE_NUMERIC);
 				if(member!=null){
 					Calendar c = Calendar.getInstance();
-					if(member.getActive().equals("Y")){
-						//System.out.println("1st 2nd:" + row.getCell(1).getDateCellValue()+ " 2nd" + member.getSubcriptionDate());
+					dt = row.getCell(1).getDateCellValue();
+					if(dt.compareTo(member.getExpirationDate()) < 0 ){
 						
-						if(row.getCell(1).getDateCellValue().compareTo(member.getSubcriptionDate()) > 0){
+						if(dt.compareTo(member.getSubcriptionDate()) > 0){
 							c.setTime(member.getSubcriptionDate());
-							c.add(Calendar.DATE, 30);
+							c.add(Calendar.DATE, 31);
 							member.setSubcriptionDate(c.getTime());
 							c.setTime(member.getExpirationDate());
-							c.add(Calendar.DATE, 30);
+							c.add(Calendar.DATE, 31);
 							member.setExpirationDate(c.getTime());
 						}
 							
-					}
-					else{
+					}else{
 						member.setSubcriptionDate(row.getCell(1).getDateCellValue());
 						c.setTime(member.getSubcriptionDate());
-						c.add(Calendar.DATE, 30);
+						c.add(Calendar.DATE, 31);
 						member.setExpirationDate(c.getTime());
 					}
 					
@@ -149,7 +149,7 @@ public class ExcelUploadService {
 					member.setSubcriptionDate(row.getCell(1).getDateCellValue());
 					Calendar c = Calendar.getInstance();
 					c.setTime(member.getSubcriptionDate());
-					c.add(Calendar.DATE, 30);
+					c.add(Calendar.DATE, 31);
 					member.setExpirationDate(c.getTime());		
 				}
 				if(new Date().compareTo(member.getExpirationDate()) > 0){

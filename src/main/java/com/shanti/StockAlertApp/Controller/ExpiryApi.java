@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shanti.StockAlertApp.Services.ExcelUploadService;
 import com.shanti.StockAlertApp.Services.ExpiryServices;
-import com.shanti.StockAlertApp.Services.SmsAlertService;
+import com.shanti.StockAlertApp.Services.ReminderService;
 
 @RestController
 public class ExpiryApi {
@@ -22,21 +22,25 @@ public class ExpiryApi {
 	private ExcelUploadService excelService;
 	
 	@Autowired
-	private SmsAlertService smsAlertService;
+	private ReminderService reminderService;
 	
 	@GetMapping(value = "getExpiredMembers")
 	public List<String> getExpiredMembers(){
 		return service.getExpiredMembers();
 	}
 	
-	@PostMapping(value="sendSMS")
-	public String sendSms(){
-		return smsAlertService.sendSms2();
+	@PostMapping(value="sendReminderToExpired")
+	public String sendReminderToExpired(){
+		 //reminderService.sendSms();	 
+		 reminderService.sendMailReminder();
+		 return "Sucess";
 	}
 	
-	@PostMapping(value="setActiveFlag")
-	public void setActiveFlag(){
-		
+	@PostMapping(value="sendReminderToComingExpired")
+	public void sendReminderToComingExpired(){
+		 reminderService.sendSms();	 
+		 reminderService.sendMailReminder();
+		 
 	}
 	
 	@PostMapping(value ="uploadInitialData")
@@ -48,6 +52,8 @@ public class ExpiryApi {
 	public void uploadInstaMojoDataDb(@PathVariable("filename") String filename){
 		excelService.ReadInstaMojoExcel("C:\\Users\\shant\\Downloads\\" + filename + ".xlsx");
 	}
+	
+	
 	
 
 }

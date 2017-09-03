@@ -25,6 +25,14 @@
 	    	<groupId>org.springframework.boot</groupId>
 	    	<artifactId>spring-boot-starter-data-jpa</artifactId>
     	</dependency>
+    	
+    	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+    	
     
     	<dependency>
             <groupId>mysql</groupId>
@@ -38,6 +46,27 @@
 		    <version>3.15</version>
 		</dependency>
      	
+     	<!-- dependencies for google drive api -->
+     	<dependency>
+		    <groupId>com.google.api-client</groupId>
+		    <artifactId>google-api-client</artifactId>
+		    <version>1.22.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
+		<dependency>
+		    <groupId>com.google.oauth-client</groupId>
+		    <artifactId>google-oauth-client-jetty</artifactId>
+		    <version>1.22.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-drive -->
+		<dependency>
+		    <groupId>com.google.apis</groupId>
+		    <artifactId>google-api-services-drive</artifactId>
+		    <version>v3-rev81-1.22.0</version>
+		</dependency>
+		
      
    </dependencies>
 </project>

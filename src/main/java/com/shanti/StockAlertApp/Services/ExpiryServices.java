@@ -15,6 +15,6 @@ public class ExpiryServices {
 	
 	public List<String> getExpiredMembers(){
 		
-		return repository.findInActiveMembers("N");
+		return repository.findInActiveMembers();
 	}
 }
