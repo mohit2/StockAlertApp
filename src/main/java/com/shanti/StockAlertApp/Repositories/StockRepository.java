@@ -1,14 +1,17 @@
 package com.shanti.StockAlertApp.Repositories;
 
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
-import com.shanti.StockAlertApp.Model.Stock;
+import com.shanti.StockAlertApp.Model.QuandleModel.CompositeKey;
+import com.shanti.StockAlertApp.Model.QuandleModel.StockPrice;
 
-public interface StockRepository extends CrudRepository<Stock, String>{
+public interface StockRepository extends CrudRepository<StockPrice, CompositeKey>{
 
-	@Query("select s.symbol from Stock s")
-	List<String> getAllStockSymbol();
+	@Query("select max(s.key.date) from StockPrice s where s.key.symbol = :symbol")
+	Date getMaxDateForStock(@Param("symbol") String symbol);
 }
+

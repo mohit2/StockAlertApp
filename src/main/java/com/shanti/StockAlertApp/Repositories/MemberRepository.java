@@ -16,6 +16,9 @@ public interface MemberRepository extends CrudRepository<PremiumMember, String>{
 	@Query("select m.phnNo from PremiumMember m where now() > m.expirationDate and m.expirationDate between now() and now()-5")
 	List<String>  findInactiveMembersForFivedays();
 	
-	@Query("from PremiumMember m where m.expirationDate > SUBDATE(now(),5) and m.expirationDate < SUBDATE(now(),1)")
-	List<PremiumMember>  findInactiveMembersForLast5Days();
+	@Query("from PremiumMember m where m.expirationDate > now() and m.expirationDate < ADDDATE(now(),3)")
+	List<PremiumMember> findActiveMembersGoingToBeExpired();
+	
+	@Query("from PremiumMember m where m.expirationDate > SUBDATE(now(),7) and m.expirationDate < SUBDATE(now(),1)")
+	List<PremiumMember>  findInactiveMembersForLast3Days();
 }

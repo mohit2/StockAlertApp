@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.shanti.StockAlertApp.Model.Stock;
 import com.shanti.StockAlertApp.Model.Trend;
+import com.shanti.StockAlertApp.Model.QuandleModel.Stock;
 import com.shanti.StockAlertApp.Repositories.StockRepository;
 import com.shanti.StockAlertApp.Repositories.TrendRepository;
 import com.shanti.StockAlertApp.Utilities.Utility;
@@ -19,7 +19,7 @@ import com.shanti.StockAlertApp.Utilities.Utility;
 @Service
 public class StockAlertServices {
 
-	@Autowired
+	/*@Autowired
 	private StockRepository repository;
 	
 	@Autowired
@@ -119,10 +119,10 @@ public class StockAlertServices {
 			Map<Integer, List<Double>>  timeToPriceMap = utility.processResponse(result);
 			/*trend =  utility.getPercentChange(timeToPriceMap, trend, days);
 			trendRepository.save(trend);
-			trendList.add(trend);*/
+			trendList.add(trend);
 		}
 		
 		
-	}
+	}*/
 	
 }

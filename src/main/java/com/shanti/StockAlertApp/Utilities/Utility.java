@@ -13,13 +13,13 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.shanti.StockAlertApp.Model.Stock;
 import com.shanti.StockAlertApp.Model.Trend;
+import com.shanti.StockAlertApp.Model.QuandleModel.Stock;
 
 @Component
 public class Utility {
 	
-	public static Logger logger = Logger.getLogger(Utility.class);
+	/*public static Logger logger = Logger.getLogger(Utility.class);
 	
 	public Map<Integer, List<Double>> processResponse(String result){
 			

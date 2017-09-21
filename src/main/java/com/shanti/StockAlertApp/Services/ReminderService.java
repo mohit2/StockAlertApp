@@ -48,37 +48,41 @@ public class ReminderService {
 	
 	String baseUrl = "https://api.textlocal.in/send";
 
-	public void sendSms(){
+	public void sendSms(List<PremiumMember> inactiveMembers){
 	
 		RestTemplate restTemplate = new RestTemplate();
 		
 		StringBuilder msg;
 		
+		for (PremiumMember premiumMember : inactiveMembers) {
+			System.out.println(premiumMember.getPhnNo());
+		}
 		MultiValueMap<String, Object> map= new LinkedMultiValueMap();
 		map.add("apikey", apiKey);
 		map.add("sender", "");
-		List<PremiumMember> inactiveMembers = repository.findInactiveMembersForLast5Days();
-
+		
 		for (PremiumMember premiumMember : inactiveMembers) {
-			msg = new StringBuilder(smsHead);
-			msg.append(premiumMember.getExpirationDate()).append(smsTrail);
+			msg = new StringBuilder("Hello " + premiumMember.getName() + ",\n\n" + smsHead + " ");
+			msg.append(premiumMember.getExpirationDate()).append("\n").append(smsTrail);
 			map.add("message", msg);
 			map.add("numbers", premiumMember.getPhnNo());
 			ResponseEntity<String> entity = restTemplate.postForEntity(baseUrl, map, String.class);
+			System.out.println(entity);
 		}
 	}
 	
-	public void sendMailReminder(){
+	public void sendMailReminder(List<PremiumMember> inactiveMembers){
 		
-		List<PremiumMember> inactiveMembers = repository.findInactiveMembersForLast5Days();
 		StringBuilder msg;
+		MimeMessage message;
+		MimeMessageHelper helper;
+		
 		try{
-			MimeMessage message = sender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(message);
 			for (PremiumMember premiumMember : inactiveMembers) {
-				//System.out.println(premiumMember.getGmail());
 				if(premiumMember.getGmail()!=null && !premiumMember.getGmail().isEmpty()){
 					System.out.println(premiumMember.getGmail());
+					message = sender.createMimeMessage();
+					helper = new MimeMessageHelper(message);
 					msg = new StringBuilder("Hello " + premiumMember.getName() + ",\n\n" + smsHead + " ");
 					msg.append(premiumMember.getExpirationDate()).append("\n").append(smsTrail)
 					.append("\n \n Regards \n Team JaanoAurSeekho");
@@ -91,16 +95,6 @@ public class ReminderService {
 				
 			}
 			
-			/*System.out.println(mailSender);
-			msg = new StringBuilder("Hello " + inactiveMembers.get(0).getName() + ",\n\n" + smsHead + " ");
-			msg.append(inactiveMembers.get(0).getExpirationDate()).append("\n").append(smsTrail)
-			
-			helper.setTo("shanti1490@gmail.com");
-			helper.setFrom(mailSender);
-			helper.setText(msg.toString());
-			helper.setSubject("Reminder for Renewal");
-			sender.send(message);*/
-			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -111,6 +105,14 @@ public class ReminderService {
 		
 		return repository.findInactiveMembersForFivedays();
 		
+	}
+	
+	public List<PremiumMember> getExpiredMembersFor3Days(){
+		
+		return repository.findInactiveMembersForLast3Days();
+	}
+	public List<PremiumMember> getMembersWhoWillBeExpired(){
+		return repository.findActiveMembersGoingToBeExpired();
 	}
 
 }

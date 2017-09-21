@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shanti.StockAlertApp.Model.PremiumMember;
 import com.shanti.StockAlertApp.Services.ExcelUploadService;
 import com.shanti.StockAlertApp.Services.ExpiryServices;
 import com.shanti.StockAlertApp.Services.ReminderService;
@@ -31,15 +32,17 @@ public class ExpiryApi {
 	
 	@PostMapping(value="sendReminderToExpired")
 	public String sendReminderToExpired(){
-		 //reminderService.sendSms();	 
-		 reminderService.sendMailReminder();
+		List<PremiumMember> members = reminderService.getExpiredMembersFor3Days();
+		 reminderService.sendSms(members);	 
+		// reminderService.sendMailReminder(members);
 		 return "Sucess";
 	}
 	
-	@PostMapping(value="sendReminderToComingExpired")
+	@PostMapping(value="sendRemindersToComingExpired")
 	public void sendReminderToComingExpired(){
-		 reminderService.sendSms();	 
-		 reminderService.sendMailReminder();
+		List<PremiumMember> members = reminderService.getMembersWhoWillBeExpired();
+		 reminderService.sendSms(members);	 
+		 reminderService.sendMailReminder(members);
 		 
 	}
 	
