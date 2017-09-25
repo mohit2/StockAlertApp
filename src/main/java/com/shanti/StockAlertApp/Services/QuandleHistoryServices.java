@@ -47,6 +47,9 @@ public class QuandleHistoryServices {
 			System.out.println();
 			builder.queryParam("start_date", strt_dt);
 		}
+		else{
+			builder.queryParam("start_date", "2015-01-01");
+		}
 		
 		ResponseEntity<Response> detail = restTemplate.getForEntity(builder.build().toUri(), Response.class);
 		Response res =detail.getBody();
